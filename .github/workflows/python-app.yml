@@ -3,31 +3,40 @@ name: Python Application CI
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. Checkout do código
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # 2. Configura o Python 3.9
     - name: Set up Python 3.9
       uses: actions/setup-python@v4
       with:
         python-version: "3.9"
 
+    # 3. Instala o Poetry via PIP (Mais estável para CI)
     - name: Install Poetry
       run: |
         python -m pip install --upgrade pip
         pip install poetry
 
+    # 4. Instala dependências ignorando erro de lock file
     - name: Install dependencies
       run: |
         poetry config virtualenvs.create false
-        poetry install --no-interaction --no-root
+        # Instalamos manualmente as libs principais para garantir que o teste rode
+        pip install fastapi pytest httpx uvicorn
+        # O comando abaixo instala o restante sem travar no arquivo lock antigo
+        poetry install --no-interaction --no-root --no-cache
 
+    # 5. Executa os testes
     - name: Run tests
       run: |
-        pip install pytest httpx fastapi
         pytest
