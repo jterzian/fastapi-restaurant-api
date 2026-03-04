@@ -9,26 +9,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.9"
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install fastapi pytest httpx uvicorn
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi pytest httpx uvicorn
 
-    - name: DEBUG - show structure
-      run: |
-        echo "=== CURRENT DIR ==="
-        pwd
-        echo "=== FILE TREE ==="
-        ls -R
-
-    - name: Run tests (verbose)
-    run: |
-      PYTHONPATH=. pytest tests/test_main.py -vv
+      - name: Run tests
+        run: |
+          PYTHONPATH=. pytest tests/test_main.py -vv
