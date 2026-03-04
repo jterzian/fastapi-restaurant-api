@@ -29,7 +29,6 @@ jobs:
         echo "=== FILE TREE ==="
         ls -R
 
-    - name: Run tests
-      run: |
-        cd fastapi-restaurant-api
-        PYTHONPATH=. pytest -vv
+     name: Run tests (verbose)
+    run: |
+      PYTHONPATH=. pytest tests/test_main.py -vv
