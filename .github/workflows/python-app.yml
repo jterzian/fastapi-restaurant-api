@@ -11,21 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # 1. Baixa o código do seu repositório
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # 2. Configura o Python 3.9
     - name: Set up Python 3.9
       uses: actions/setup-python@v4
       with:
         python-version: "3.9"
 
+    # 3. Instala o Poetry via PIP (Correção para o erro anterior)
     - name: Install Poetry
       run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
+        python -m pip install --upgrade pip
+        pip install poetry
 
+    # 4. Instala as dependências do seu projeto
     - name: Install dependencies
-      run: poetry install --no-root --no-interaction
+      run: |
+        poetry config virtualenvs.create false
+        poetry install --no-interaction --no-root
 
+    # 5. Executa os testes automatizados
     - name: Run tests
-      run: poetry run pytest
+      run: pytest
