@@ -3,17 +3,4 @@ name = "fastapi-restaurant-api"
 version = "0.1.0"
 description = "API para o sistema de restaurante"
 authors = ["Joao Terzian"]
-packages = [{include = "main.py"}]
-
-[tool.poetry.dependencies]
-python = "^3.9"
-fastapi = "^0.100.0"
-uvicorn = "^0.22.0"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.0"
-httpx = "^0.24.1"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+package-mode = false  # <--- ADICIONE ESTA LINHA AQUI!
