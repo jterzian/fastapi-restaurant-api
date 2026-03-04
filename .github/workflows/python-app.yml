@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-    - uses: actions/setup-python@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
         python-version: "3.9"
 
@@ -20,6 +22,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install fastapi pytest httpx uvicorn
 
-    - name: Run tests
+    - name: DEBUG - show structure
       run: |
-        PYTHONPATH=. pytest
+        echo "=== CURRENT DIR ==="
+        pwd
+        echo "=== FILE TREE ==="
+        ls -R
+
+    - name: Run tests (verbose)
+      run: |
+        PYTHONPATH=. pytest -vv
