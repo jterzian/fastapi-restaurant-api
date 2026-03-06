@@ -3,4 +3,13 @@ name = "fastapi-restaurant-api"
 version = "0.1.0"
 description = "API para o sistema de restaurante"
 authors = ["Joao Terzian"]
-package-mode = false  # <--- ADICIONE ESTA LINHA AQUI!
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "*"
+uvicorn = "*"
+httpx = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
